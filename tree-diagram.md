@@ -1,0 +1,44 @@
+# Reflection Tree Diagram
+
+```mermaid
+graph TD
+
+START --> A1_OPEN
+A1_OPEN --> A1_D1
+
+A1_D1 --> A1_Q_HIGH
+A1_D1 --> A1_Q_LOW
+
+A1_Q_HIGH --> A1_REF_INT
+A1_Q_LOW --> A1_REF_EXT
+
+A1_REF_INT --> A1_Q2
+A1_REF_EXT --> A1_Q2
+
+A1_Q2 --> BRIDGE_1_2
+
+BRIDGE_1_2 --> A2_Q1
+A2_Q1 --> A2_D1
+
+A2_D1 --> A2_REF_CONTRIB
+A2_D1 --> A2_REF_ENTITLE
+
+A2_REF_CONTRIB --> A2_Q2
+A2_REF_ENTITLE --> A2_Q2
+
+A2_Q2 --> A2_Q3
+A2_Q3 --> BRIDGE_2_3
+
+BRIDGE_2_3 --> A3_Q1
+A3_Q1 --> A3_D1
+
+A3_D1 --> A3_REF_SELF
+A3_D1 --> A3_REF_OTHER
+
+A3_REF_SELF --> A3_Q2
+A3_REF_OTHER --> A3_Q2
+
+A3_Q2 --> A3_Q3
+A3_Q3 --> SUMMARY
+
+SUMMARY --> END

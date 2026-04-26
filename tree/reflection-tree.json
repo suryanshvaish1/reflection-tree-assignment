@@ -1,0 +1,60 @@
+{
+  "nodes": [
+    { "id": "START", "type": "start", "text": "Good evening. Let's reflect on your day.", "next": "A1_OPEN" },
+
+    { "id": "A1_OPEN", "type": "question", "text": "How would you describe today in one word?", "options": ["Productive", "Tough", "Mixed", "Frustrating"], "next": "A1_D1" },
+
+    { "id": "A1_D1", "type": "decision", "rules": [
+      { "if": ["Productive", "Mixed"], "go": "A1_Q_HIGH" },
+      { "if": ["Tough", "Frustrating"], "go": "A1_Q_LOW" }
+    ]},
+
+    { "id": "A1_Q_HIGH", "type": "question", "text": "When things went well, what made it happen?", "options": ["I prepared well", "I adapted quickly", "Team supported me", "It just worked out"], "signal": "axis1:internal", "next": "A1_REF_INT" },
+
+    { "id": "A1_Q_LOW", "type": "question", "text": "When things got difficult, what was your instinct?", "options": ["Find what I could control", "Wait for help", "Blame situation", "Feel stuck"], "signal": "axis1:external", "next": "A1_REF_EXT" },
+
+    { "id": "A1_REF_INT", "type": "reflection", "text": "You took ownership of outcomes today. That shows strong agency.", "next": "A1_Q2" },
+
+    { "id": "A1_REF_EXT", "type": "reflection", "text": "It felt like things were outside your control. But there was still a moment where you chose how to respond.", "next": "A1_Q2" },
+
+    { "id": "A1_Q2", "type": "question", "text": "When facing uncertainty, what did you do?", "options": ["Took initiative", "Waited for clarity", "Asked for help", "Avoided action"], "signal": "axis1:internal", "next": "BRIDGE_1_2" },
+
+    { "id": "BRIDGE_1_2", "type": "bridge", "text": "Now let’s shift from control → contribution.", "next": "A2_Q1" },
+
+    { "id": "A2_Q1", "type": "question", "text": "Which best describes your day?", "options": ["Helped someone", "Did extra work", "Expected recognition", "Felt others lacked effort"], "next": "A2_D1" },
+
+    { "id": "A2_D1", "type": "decision", "rules": [
+      { "if": ["Helped someone", "Did extra work"], "go": "A2_REF_CONTRIB" },
+      { "if": ["Expected recognition", "Felt others lacked effort"], "go": "A2_REF_ENTITLE" }
+    ]},
+
+    { "id": "A2_REF_CONTRIB", "type": "reflection", "text": "You focused on what you gave. Contribution builds long-term value.", "signal": "axis2:contribution", "next": "A2_Q2" },
+
+    { "id": "A2_REF_ENTITLE", "type": "reflection", "text": "It seems expectations shaped your experience today. What you give often matters more than what you get.", "signal": "axis2:entitlement", "next": "A2_Q2" },
+
+    { "id": "A2_Q2", "type": "question", "text": "When working with others today, you mostly:", "options": ["Supported team", "Focused on own tasks", "Expected help", "Avoided responsibility"], "signal": "axis2:contribution", "next": "A2_Q3" },
+
+    { "id": "A2_Q3", "type": "question", "text": "Did you go beyond your role today?", "options": ["Yes, actively", "Sometimes", "Only when asked", "Not really"], "signal": "axis2:contribution", "next": "BRIDGE_2_3" },
+
+    { "id": "BRIDGE_2_3", "type": "bridge", "text": "Now let’s widen the lens — beyond you.", "next": "A3_Q1" },
+
+    { "id": "A3_Q1", "type": "question", "text": "Who comes to mind when you think about today’s challenges?", "options": ["Only me", "My team", "A colleague", "Customers"], "next": "A3_D1" },
+
+    { "id": "A3_D1", "type": "decision", "rules": [
+      { "if": ["Only me"], "go": "A3_REF_SELF" },
+      { "if": ["My team", "A colleague", "Customers"], "go": "A3_REF_OTHER" }
+    ]},
+
+    { "id": "A3_REF_SELF", "type": "reflection", "text": "Your focus stayed inward today. Expanding perspective may reduce pressure.", "signal": "axis3:self", "next": "A3_Q2" },
+
+    { "id": "A3_REF_OTHER", "type": "reflection", "text": "You considered others. That expands meaning beyond personal effort.", "signal": "axis3:others", "next": "A3_Q2" },
+
+    { "id": "A3_Q2", "type": "question", "text": "What mattered most today?", "options": ["My tasks", "Team success", "Helping someone", "Customer impact"], "signal": "axis3:others", "next": "A3_Q3" },
+
+    { "id": "A3_Q3", "type": "question", "text": "How often did you think beyond yourself today?", "options": ["Rarely", "Sometimes", "Often", "Consistently"], "signal": "axis3:others", "next": "SUMMARY" },
+
+    { "id": "SUMMARY", "type": "summary", "text": "You reflected across control, contribution, and awareness today. Small shifts here can change tomorrow.", "next": "END" },
+
+    { "id": "END", "type": "end", "text": "Good work reflecting. See you tomorrow." }
+  ]
+}
